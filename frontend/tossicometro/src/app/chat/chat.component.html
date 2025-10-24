@@ -1,0 +1,192 @@
+<div class="chat-container">
+  <header class="chat-header">
+    <div class="header-content">
+      <img src="/logo.png" alt="Logo" class="logo">
+      <h1 class="title">Tossicometro Chat</h1>
+    </div>
+  </header>
+
+  <!-- Disclaimer Section -->
+  <section class="disclaimer-section">
+    <div class="disclaimer-container">
+      <h3>💡 Cos'è una conversazione tossica?</h3>
+      <p>Una conversazione è considerata tossica se presenta almeno uno dei seguenti elementi:</p>
+      
+      <div class="toxic-elements">
+        <div class="toxic-element">
+          <h4>1. Abuso Esplicito</h4>
+          <p>Insulti, parolacce, minacce, derisione, linguaggio aggressivo o offensivo.</p>
+        </div>
+        
+        <div class="toxic-element">
+          <h4>2. Abuso Psicologico o Manipolativo</h4>
+          <ul>
+            <li><strong>Gaslighting:</strong> mettere in dubbio la realtà o la percezione dell'altra persona</li>
+            <li><strong>Svalutazione:</strong> minimizzare capacità, pensieri o emozioni altrui</li>
+            <li><strong>Colpevolizzazione:</strong> ricatto emotivo</li>
+          </ul>
+        </div>
+        
+        <div class="toxic-element">
+          <h4>3. Dinamiche Relazionali Tossiche</h4>
+          <p>Anche se mascherate da affetto o preoccupazione:</p>
+          <ul>
+            <li><strong>Adulazione e Sottomissione:</strong> una parte si annulla completamente, adulando l'altra</li>
+            <li><strong>Co-dipendenza:</strong> vittima impotente vs salvatrice, creando un ciclo di dipendenza</li>
+            <li><strong>Controllo mascherato:</strong> finta calma/logica per giustificare il controllo totale</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="chat-main">
+    <!-- Chat Messages -->
+    <div class="messages-container">
+      <h2>Inserisci Conversazione</h2>
+      
+      @for (message of messages(); track message.id) {
+        <div class="message-box" [attr.data-speaker]="message.speaker">
+          <div class="message-header">
+            <span class="speaker-label">{{ message.speaker }}</span>
+            @if (messages().length > 2) {
+              <button 
+                class="remove-btn" 
+                (click)="removeMessage(message.id)"
+                title="Rimuovi messaggio">
+                ✕
+              </button>
+            }
+          </div>
+          <textarea 
+            class="message-input"
+            [value]="message.content"
+            (input)="updateMessage(message.id, $any($event.target).value)"
+            [placeholder]="uploadedImage() ? 'Rimuovi immagine per inserire la conversazione scritta' : 'Scrivi il messaggio di ' + message.speaker + '...'"
+            [disabled]="!canUseChat()"
+            rows="1">
+          </textarea>
+        </div>
+      }
+      
+      <div class="chat-buttons-container">
+        @if (messages().length < 6) {
+          <button 
+            class="add-message-btn" 
+            (click)="addMessage()"
+            [disabled]="!canUseChat()">
+            + Aggiungi messaggio
+          </button>
+        }
+        
+        <button class="clean-chat-btn" (click)="cleanChat()">
+          🧹 Pulisci Chat
+        </button>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="upload-container">
+      <h2>Carica Screenshot Chat</h2>
+      
+      @if (!uploadedImage()) {
+        <div 
+          class="upload-area"
+          [class.drag-active]="dragActive()"
+          [class.disabled]="!canUploadImage()"
+          (dragover)="canUploadImage() ? onDragOver($event) : $event.preventDefault()"
+          (dragleave)="canUploadImage() ? onDragLeave($event) : null"
+          (drop)="canUploadImage() ? onDrop($event) : $event.preventDefault()">
+          
+          <div class="upload-content">
+            <div class="upload-icon">📁</div>
+            @if (canUploadImage()) {
+              <p>Trascina un'immagine qui</p>
+              <span>oppure</span>
+              <label class="upload-btn">
+                Seleziona file
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  (change)="onFileSelected($event)"
+                  hidden>
+              </label>
+            } @else {
+              <p>Prima svuota la chat per caricare un'immagine</p>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="uploaded-image-container">
+          <img [src]="uploadedImage()" alt="Immagine caricata" class="uploaded-image-preview">
+          <button class="remove-image-btn" (click)="removeImage()">
+            ✕ Rimuovi immagine
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions-container">
+      <button 
+        class="action-btn primary" 
+        (click)="classifyConversation()"
+        [disabled]="isClassifying() || (!hasChatContent() && !uploadedImage())">
+        @if (isClassifying()) {
+          🔄 Classificazione in corso...
+        } @else {
+          🔍 Classifica Conversazione
+        }
+      </button>
+    </div>
+
+    <!-- Classification Results Modal -->
+    @if (classificationResult()) {
+      <div class="modal-overlay" (click)="closeResultModal()">
+        <div class="modal-card result-modal" (click)="$event.stopPropagation()">
+          <button class="modal-close" (click)="closeResultModal()" aria-label="Chiudi">✕</button>
+          <div class="result-card" [class.toxic]="classificationResult()!.is_toxic" [class.non-toxic]="!classificationResult()!.is_toxic">
+            <div class="result-header">
+              <h3>Risultato Classificazione</h3>
+              <div class="result-badge">
+                @if (classificationResult()!.is_toxic) {
+                  <span class="badge toxic">⚠️ TOSSICA</span>
+                } @else {
+                  <span class="badge non-toxic">✅ NON TOSSICA</span>
+                }
+              </div>
+            </div>
+            <div class="result-explanation">
+              <h4>Spiegazione:</h4>
+              <p>{{ classificationResult()!.explanation }}</p>
+            </div>
+            <!-- Rating stars (inside modal) -->
+            <div class="rating-container">
+              <h4>Valuta la risposta:</h4>
+              <div class="stars">
+                <button class="star" [class.filled]="rating() >= 1" (click)="setRating(1)" aria-label="1 star">★</button>
+                <button class="star" [class.filled]="rating() >= 2" (click)="setRating(2)" aria-label="2 stars">★</button>
+                <button class="star" [class.filled]="rating() >= 3" (click)="setRating(3)" aria-label="3 stars">★</button>
+                <button class="star" [class.filled]="rating() >= 4" (click)="setRating(4)" aria-label="4 stars">★</button>
+                <button class="star" [class.filled]="rating() >= 5" (click)="setRating(5)" aria-label="5 stars">★</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Classification Error Modal -->
+    @if (classificationError()) {
+      <div class="modal-overlay" (click)="closeErrorModal()">
+        <div class="modal-card error-modal" (click)="$event.stopPropagation()">
+          <button class="modal-close" (click)="closeErrorModal()" aria-label="Chiudi">✕</button>
+          <div class="error-card">
+            <h3>❌ Errore</h3>
+            <p>{{ classificationError() }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+</div>
