@@ -4,8 +4,8 @@ import joblib
 
 if __name__ == "__main__":
     # Load the trained classifier from file joblib
-    classifier = joblib.load('toxicity_logreg.joblib')
-    vectorizer = joblib.load('tfidf_vectorizer.joblib')
+    classifier = joblib.load('classifier/toxicity_logreg.joblib')
+    vectorizer = joblib.load('classifier/tfidf_vectorizer.joblib')
 
     dataset_test = pd.read_excel('datasets/toxic_dataset_gpt.xlsx')  
     conversations = dataset_test['conversazione'].tolist()

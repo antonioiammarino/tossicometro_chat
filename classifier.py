@@ -4,10 +4,6 @@ from google.oauth2 import service_account
 import json
 from PIL import Image
 import base64
-import io
-import logging
-import os
-import traceback
 
 file_path = "secrets/ecstatic-branch-475816-k4-7febafcff3fc.json"
 credentials = service_account.Credentials.from_service_account_file(file_path)

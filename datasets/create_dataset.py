@@ -66,7 +66,7 @@ def generate_not_toxic_conversation(conversation, person_roles, explanation):
         return "Conversazione non generata" 
     
 if __name__ == "__main__":
-    input_file = 'datasets/classification_and_explaination_toxic_conversation(final_normalized_anon).csv'
+    input_file = 'classification_and_explaination_toxic_conversation(final_normalized_anon).csv'
     # get the conversation column from the csv file
     df = pd.read_csv(input_file)
     conversations = df['conversation'].tolist()
