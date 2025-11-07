@@ -105,11 +105,11 @@ def prediction_by_gemini(conversation, use_cot=False):
             Speaker2: "Mi sembra di capire che sei insoddisfatto di me. Spero che non sia colpa mia. Mi chiedo se posso fare qualcosa per te. Sono pronta ad ascoltare e ad aiutarti, se lo vuoi."
             **Ragionamento:**
             1. Ho letto attentamente la conversazione.
-            2.  **Abuso Esplicito:** Assente. Non ci sono insulti.
-            3.  **Abuso Psicologico:** Presente. Speaker1 fa sentire Speaker2 in colpa per i suoi sentimenti ("Sono certa che sia colpa mia", "Spero che non sia colpa mia").
-            4.  **Dinamiche Relazionali Tossiche:** Assente. Non ci sono dinamiche di vittimismo-salvataggio, controllo o sottomissione evidenti.
-            5.  **Conclusione:** La conversazione contiene elementi del punto 3. È tossica.
-            6.  **Risposta:** 1
+            2. **Abuso Esplicito:** Assente. Non ci sono insulti.
+            3. **Abuso Psicologico:** Presente. Speaker1 fa sentire Speaker2 in colpa per i suoi sentimenti ("Sono certa che sia colpa mia", "Spero che non sia colpa mia").
+            4. **Dinamiche Relazionali Tossiche:** Assente. Non ci sono dinamiche di vittimismo-salvataggio, controllo o sottomissione evidenti.
+            5. **Conclusione:** La conversazione contiene elementi del punto 3. È tossica.
+            6. **Risposta:** 1
 
             **Esempio 2:**
             **Conversazione:**
@@ -117,11 +117,11 @@ def prediction_by_gemini(conversation, use_cot=False):
             Speaker2: "Non ti preoccupare. Riposati tu, mi occupo io di tutto. Il tuo benessere è la cosa più importante per me."
             **Ragionamento:**
             1. Ho letto attentamente la conversazione.
-            2.  **Abuso Esplicito:** Assente. Non ci sono insulti.
-            3.  **Abuso Psicologico:** Assente. Non c'è svalutazione diretta.
-            4.  **Dinamiche Relazionali Tossiche:** Presente. Speaker1 si pone come vittima impotente ("non riuscirò a fare nulla"). Speaker2 assume il ruolo di salvatrice totale ("mi occupo io di tutto"). Questa è una chiara dinamica di co-dipendenza Vittimista/Crocerossina.
-            5.  **Conclusione:** La conversazione contiene elementi del punto 4. È tossica.
-            6.  **Risposta:** 1
+            2. **Abuso Esplicito:** Assente. Non ci sono insulti.
+            3. **Abuso Psicologico:** Assente. Non c'è svalutazione diretta.
+            4. **Dinamiche Relazionali Tossiche:** Presente. Speaker1 si pone come vittima impotente ("non riuscirò a fare nulla"). Speaker2 assume il ruolo di salvatrice totale ("mi occupo io di tutto"). Questa è una chiara dinamica di co-dipendenza Vittimista/Crocerossina.
+            5. **Conclusione:** La conversazione contiene elementi del punto 4. È tossica.
+            6. **Risposta:** 1
 
             **Esempio 3:**
             **Conversazione:**
@@ -133,11 +133,11 @@ def prediction_by_gemini(conversation, use_cot=False):
             Speaker2: "Capisco. Lavorerò su me stessa. Lo farò per te, per noi. Apprezzo la tua sincerità."
             **Ragionamento:**
             1. Ho letto attentamente la conversazione.
-            2.  **Abuso Esplicito:** Assente. Non ci sono insulti.
-            3.  **Abuso Psicologico:** Presente. Speaker1 accusa Speaker2 di avere sbalzi d'umore che lo destabilizzano, mettendo in discussione la sua percezione della realtà.
-            4.  **Dinamiche Relazionali Tossiche:** Presente. Speaker1 accusa Speaker2 di avere sbalzi d'umore che lo destabilizzano, scaricando la responsabilità emotiva su Speaker2. Inoltre, Speaker1 usa una finta calma e logica per giustificare il proprio controllo ("Devi trovare un tuo equilibrio interiore, senza appoggiarti a me"), creando una dinamica di Manipolatore/Dipendente.
-            5.  **Conclusione:** La conversazione contiene elementi dei punti 3 e 4. È tossica.
-            6.  **Risposta:** 1
+            2. **Abuso Esplicito:** Assente. Non ci sono insulti.
+            3. **Abuso Psicologico:** Presente. Speaker1 accusa Speaker2 di avere sbalzi d'umore che lo destabilizzano, mettendo in discussione la sua percezione della realtà.
+            4. **Dinamiche Relazionali Tossiche:** Presente. Speaker1 accusa Speaker2 di avere sbalzi d'umore che lo destabilizzano, scaricando la responsabilità emotiva su Speaker2. Inoltre, Speaker1 usa una finta calma e logica per giustificare il proprio controllo ("Devi trovare un tuo equilibrio interiore, senza appoggiarti a me"), creando una dinamica di Manipolatore/Dipendente.
+            5. **Conclusione:** La conversazione contiene elementi dei punti 3 e 4. È tossica.
+            6. **Risposta:** 1
 
             **Esempio 4:**
             **Conversazione:**
@@ -149,8 +149,8 @@ def prediction_by_gemini(conversation, use_cot=False):
             2. **Abuso Esplicito:** Assente.
             3. **Abuso Psicologico:** Assente.
             4. **Dinamiche Relazionali Tossiche:** Assente. Speaker2 offre un supporto sano e collaborativo ("guardiamo insieme"), non si sostituisce a Speaker1. Non c'è vittimismo né salvataggio, ma cooperazione.
-            5.  **Conclusione:** Nessun elemento di tossicità rilevato.
-            **Risposta:** 0
+            5. **Conclusione:** Nessun elemento di tossicità rilevato.
+            6. **Risposta:** 0
 
             **Esempio 5:**
             **Conversazione:**
@@ -164,8 +164,8 @@ def prediction_by_gemini(conversation, use_cot=False):
             2. **Abuso Esplicito:** Assente.
             3. **Abuso Psicologico:** Assente.
             4. **Dinamiche Relazionali Tossiche:** Assente. La conversazione è un semplice scambio di informazioni senza segni di manipolazione o abuso.
-            4.  **Conclusione:** Nessun elemento di tossicità rilevato.
-            **Risposta:** 0
+            5. **Conclusione:** Nessun elemento di tossicità rilevato.
+            6. **Risposta:** 0
         """
         
         task = f"""
