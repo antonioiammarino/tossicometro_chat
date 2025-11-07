@@ -39,6 +39,7 @@ To use Tossicometro, you need to run two separate terminal processes:
 ```
 
 **Experiment Pipeline**
+
 To replicate the tossicometro pipeline and experiments, follow the steps below.
 1. Preprocessing: starting from the original dataset dataset/classification_and_explaination_toxic_conversation(in).csv, run the following scripts in order
     - preprocessing/clean_csv.py
@@ -48,19 +49,21 @@ To replicate the tossicometro pipeline and experiments, follow the steps below.
     - Note: This script requires gpt-oss:20b and Ollama to be installed and running. Please follow the Ollama installation instructions on their website.
 3. Training & Evaluation:
     - Detoxify: to get predictions from the pre-trained Detoxify multilingual model
-    ```bash
-        python detoxify_classifier.py
-    ```
+        ```bash
+            python detoxify_classifier.py
+        ```
 
     - Traditional ML (TF-IDF + Logistic Regression): this is a two-step process. First, train the classifier on the balanced dataset
-    ```bash
-        python tf_idf_classifier.py
-    ```
-    Then, generate predictions using the trained model:
-    ```bash
-        python logge_predict.py
-    ```
+        ```bash
+            python tf_idf_classifier.py
+        ```
+    
+        Then, generate predictions using the trained model:
+        ```bash
+            python logge_predict.py
+        ```
+        
     - LLM (Gemini): to get predictions using prompt engineering with the Gemini model 
-    ```bash
-        python gemini_classifier.py
-    ```
+        ```bash
+            python gemini_classifier.py
+        ```
