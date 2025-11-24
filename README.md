@@ -60,7 +60,7 @@ To replicate the tossicometro pipeline and experiments, follow the steps below.
     
         Then, generate predictions using the trained model:
         ```bash
-            python logge_predict.py
+            python logreg_predict.py
         ```
         
     - LLM (Gemini): to get predictions using prompt engineering with the Gemini model 
